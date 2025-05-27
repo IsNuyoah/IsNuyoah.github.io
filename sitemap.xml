@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://isnuyoah.github.io/manifest.json</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/bangumi/index.html</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/music/index.html</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/posts/4a17b156.html</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/gallery/index.html</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/movies/index.html</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/link/index.html</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/tags/index.html</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/about/index.html</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/links/index.html</loc>
+    
+    <lastmod>2025-05-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://isnuyoah.github.io/categories/index.html</loc>
+    
+    <lastmod>2025-05-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  <url>
+    <loc>http://isnuyoah.github.io/</loc>
+    <lastmod>2025-05-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+
+  
+</urlset>
