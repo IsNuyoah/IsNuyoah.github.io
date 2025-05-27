@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://isnuyoah.github.io/posts/4a17b156.html</loc>
+    
+    <lastmod>2025-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isnuyoah.github.io/music/index.html</loc>
     
     <lastmod>2025-05-27</lastmod>
@@ -11,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/gallery/index.html</loc>
+    <loc>https://isnuyoah.github.io/about/index.html</loc>
     
     <lastmod>2025-05-27</lastmod>
     
@@ -20,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/about/index.html</loc>
+    <loc>https://isnuyoah.github.io/gallery/index.html</loc>
     
     <lastmod>2025-05-27</lastmod>
     
@@ -39,15 +48,6 @@
   
   <url>
     <loc>https://isnuyoah.github.io/bangumi/index.html</loc>
-    
-    <lastmod>2025-05-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/posts/4a17b156.html</loc>
     
     <lastmod>2025-05-27</lastmod>
     
