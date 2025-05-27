@@ -20,17 +20,6 @@
     
     
     <entry>
-      <title></title>
-      <link href="/manifest.json"/>
-      <url>/manifest.json</url>
-      
-        <content type="html"><![CDATA[{"name":"Nuyoah's blog","short_name":"Nuyoah's blog","theme_color":"#3b70fc","background_color":"#3b70fc","display":"standalone","scope":"/","start_url":"/","icons":[{"src":"/img/siteicon/font.png","sizes":"16x16","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"32x32","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"48x48","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"64x64","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"128x128","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"144x144","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"512x512","type":"image/png"}],"splash_pages":null}]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>���ڱ���</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -53,9 +42,31 @@
     
     
     <entry>
+      <title></title>
+      <link href="/manifest.json"/>
+      <url>/manifest.json</url>
+      
+        <content type="html"><![CDATA[{"name":"Nuyoah's blog","short_name":"Nuyoah's blog","theme_color":"#3b70fc","background_color":"#3b70fc","display":"standalone","scope":"/","start_url":"/","icons":[{"src":"/img/siteicon/font.png","sizes":"16x16","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"32x32","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"48x48","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"64x64","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"128x128","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"144x144","type":"image/png"},{"src":"/img/siteicon/font.png","sizes":"512x512","type":"image/png"}],"splash_pages":null}]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>分类</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>��Ƭ</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -86,17 +97,6 @@
     
     
     <entry>
-      <title>友の羁绊</title>
-      <link href="/links/index.html"/>
-      <url>/links/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>��Ӱ</title>
       <link href="/movies/index.html"/>
       <url>/movies/index.html</url>
@@ -108,20 +108,9 @@
     
     
     <entry>
-      <title>����</title>
-      <link href="/music/index.html"/>
-      <url>/music/index.html</url>
-      
-        <content type="html"><![CDATA[<!--     <div id="aplayer-MjEJOwFA" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="6832096597" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="true" data-mutex="false" data-listmaxheight="400px" data-preload="none" data-theme="#ad7a86"    ></div> -->]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>��Ƭ</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
+      <title>友の羁绊</title>
+      <link href="/links/index.html"/>
+      <url>/links/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -135,6 +124,17 @@
       <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>����</title>
+      <link href="/music/index.html"/>
+      <url>/music/index.html</url>
+      
+        <content type="html"><![CDATA[<!--     <div id="aplayer-oyQWlJyg" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="6832096597" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="true" data-mutex="false" data-listmaxheight="400px" data-preload="none" data-theme="#ad7a86"    ></div> -->]]></content>
       
     </entry>
     
