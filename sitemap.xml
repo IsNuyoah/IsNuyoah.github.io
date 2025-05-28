@@ -65,6 +65,15 @@
   </url>
   
   <url>
+    <loc>https://isnuyoah.github.io/posts/3cbf5c9a.html</loc>
+    
+    <lastmod>2025-05-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isnuyoah.github.io/about/index.html</loc>
     
     <lastmod>2025-05-28</lastmod>
@@ -108,6 +117,20 @@
     <priority>1.0</priority>
   </url>
 
+  
+  <url>
+    <loc>https://isnuyoah.github.io/tags/%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2025-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/</loc>
+    <lastmod>2025-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 
   

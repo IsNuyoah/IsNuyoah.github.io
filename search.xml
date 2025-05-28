@@ -15,6 +15,27 @@
     </entry>
     
     
+    
+    <entry>
+      <title>测试自动化部署</title>
+      <link href="/posts/3cbf5c9a.html"/>
+      <url>/posts/3cbf5c9a.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="测试自动化部署"><a href="#测试自动化部署" class="headerlink" title="测试自动化部署"></a>测试自动化部署</h1><p>这是一篇用于测试 Hexo 博客自动化部署的简单文章。</p><p>通过这篇文章，我们确认：</p><ul><li>博客能成功生成</li><li>自动化部署流程正常执行</li><li>页面能正确显示内容</li></ul><p>谢谢阅读！祝你部署顺利！</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 测试 </tag>
+            
+            <tag> 自动化部署 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
   
   
     
