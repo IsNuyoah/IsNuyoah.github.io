@@ -20,15 +20,6 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/music/index.html</loc>
-    
-    <lastmod>2025-08-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://isnuyoah.github.io/movies/index.html</loc>
     
     <lastmod>2025-08-01</lastmod>
@@ -38,7 +29,25 @@
   </url>
   
   <url>
+    <loc>https://isnuyoah.github.io/music/index.html</loc>
+    
+    <lastmod>2025-08-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isnuyoah.github.io/suishuo/index.html</loc>
+    
+    <lastmod>2025-08-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/posts/98873ddf.html</loc>
     
     <lastmod>2025-08-01</lastmod>
     
@@ -144,6 +153,41 @@
     <priority>1.0</priority>
   </url>
 
+  
+  <url>
+    <loc>https://isnuyoah.github.io/tags/HTB/</loc>
+    <lastmod>2025-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2025-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/tags/Windows/</loc>
+    <lastmod>2025-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/tags/MSSQL/</loc>
+    <lastmod>2025-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/tags/SMB/</loc>
+    <lastmod>2025-08-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
   <url>
     <loc>https://isnuyoah.github.io/tags/%E9%9D%B6%E5%9C%BA/</loc>

