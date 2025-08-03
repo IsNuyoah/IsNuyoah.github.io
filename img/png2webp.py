@@ -13,16 +13,19 @@ img_files = [f for f in files if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
 # 按文件修改时间排序
 img_files = sorted(img_files, key=lambda x: os.path.getmtime(os.path.join(img_dir, x)))
 
-for img_file in img_files:
+# 遍历图片文件，按时间戳递增编号生成文件名
+for idx, img_file in enumerate(img_files, start=1):
     full_path = os.path.join(img_dir, img_file)
 
     # 获取文件修改时间，转成整数时间戳字符串
     mtime = os.path.getmtime(full_path)
     timestamp = str(int(mtime))
 
-    # webp 文件名，避免重名，加上文件名防止覆盖（可选）
-    name_without_ext = os.path.splitext(img_file)[0]
-    webp_file = f"{timestamp}_{name_without_ext}.webp"
+    # 自动递增编号，格式为两位数字
+    file_number = f"{idx:02d}"
+
+    # 新的webp文件名，格式为 timestamp-01, timestamp-02 等
+    webp_file = f"{timestamp}-{file_number}.webp"
     webp_path = os.path.join(img_dir, webp_file)
 
     # 打开图片，转成webp保存，quality=80

