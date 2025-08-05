@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://isnuyoah.github.io/manifest.json</loc>
+    
+    <lastmod>2025-08-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/link/index.html</loc>
+    
+    <lastmod>2025-08-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isnuyoah.github.io/movies/index.html</loc>
     
     <lastmod>2025-08-05</lastmod>
@@ -21,24 +39,6 @@
   
   <url>
     <loc>https://isnuyoah.github.io/suishuo/index.html</loc>
-    
-    <lastmod>2025-08-05</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/manifest.json</loc>
-    
-    <lastmod>2025-08-05</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/link/index.html</loc>
     
     <lastmod>2025-08-05</lastmod>
     
@@ -92,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/posts/3cbf5c9a.html</loc>
+    <loc>https://isnuyoah.github.io/posts/8283a223.html</loc>
     
     <lastmod>2025-08-05</lastmod>
     
@@ -101,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/posts/8283a223.html</loc>
+    <loc>https://isnuyoah.github.io/posts/3cbf5c9a.html</loc>
     
     <lastmod>2025-08-05</lastmod>
     
@@ -119,7 +119,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/books/index.html</loc>
+    <loc>https://isnuyoah.github.io/about/index.html</loc>
     
     <lastmod>2025-08-05</lastmod>
     
@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/about/index.html</loc>
+    <loc>https://isnuyoah.github.io/books/index.html</loc>
     
     <lastmod>2025-08-05</lastmod>
     
