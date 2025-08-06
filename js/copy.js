@@ -1,0 +1,1 @@
+document.addEventListener("copy",(function(t){toastr.options={closeButton:!1,debug:!1,progressBar:!0,positionClass:"toast-top-left",onclick:null,showDuration:"300",hideDuration:"300",timeOut:"2500",extendedTimeOut:"1000",showEasing:"swing",hideEasing:"linear",showMethod:"fadeIn",hideMethod:"fadeOut"},toastr.success("如果转载，请保留原文链接哦(●ˇ∀ˇ●)","复制成功！！！")}));
