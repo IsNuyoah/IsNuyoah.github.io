@@ -56,25 +56,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/gallery/xiamei/index.html</loc>
-    
-    <lastmod>2025-08-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://isnuyoah.github.io/gallery/yane/index.html</loc>
-    
-    <lastmod>2025-08-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/categories/index.html</loc>
     
     <lastmod>2025-08-12</lastmod>
     
@@ -119,7 +101,25 @@
   </url>
   
   <url>
+    <loc>https://isnuyoah.github.io/gallery/qingshanzhikezi/index.html</loc>
+    
+    <lastmod>2025-08-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isnuyoah.github.io/gallery/travel/index.html</loc>
+    
+    <lastmod>2025-08-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/gallery/xiamei/index.html</loc>
     
     <lastmod>2025-08-12</lastmod>
     
@@ -173,7 +173,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/posts/8283a223.html</loc>
+    <loc>https://isnuyoah.github.io/posts/3cbf5c9a.html</loc>
     
     <lastmod>2025-08-12</lastmod>
     
@@ -182,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/posts/3cbf5c9a.html</loc>
+    <loc>https://isnuyoah.github.io/posts/8283a223.html</loc>
     
     <lastmod>2025-08-12</lastmod>
     
@@ -209,6 +209,15 @@
   </url>
   
   <url>
+    <loc>https://isnuyoah.github.io/bangumi/index.html</loc>
+    
+    <lastmod>2025-08-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isnuyoah.github.io/books/index.html</loc>
     
     <lastmod>2025-08-12</lastmod>
@@ -218,7 +227,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/bangumi/index.html</loc>
+    <loc>https://isnuyoah.github.io/categories/index.html</loc>
     
     <lastmod>2025-08-12</lastmod>
     
