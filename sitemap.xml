@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://isnuyoah.github.io/shuoshuo/index.html</loc>
+    
+    <lastmod>2026-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/tags/index.html</loc>
+    
+    <lastmod>2026-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://isnuyoah.github.io/manifest.json</loc>
     
     <lastmod>2026-01-04</lastmod>
@@ -38,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/shuoshuo/index.html</loc>
+    <loc>https://isnuyoah.github.io/gallery/shenmei/index.html</loc>
     
     <lastmod>2026-01-04</lastmod>
     
@@ -47,7 +65,61 @@
   </url>
   
   <url>
-    <loc>https://isnuyoah.github.io/tags/index.html</loc>
+    <loc>https://isnuyoah.github.io/gallery/travel/index.html</loc>
+    
+    <lastmod>2026-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/gallery/xiamei/index.html</loc>
+    
+    <lastmod>2026-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/gallery/yane/index.html</loc>
+    
+    <lastmod>2026-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/archives/index.html</loc>
+    
+    <lastmod>2026-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/bangumi/index.html</loc>
+    
+    <lastmod>2026-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/books/index.html</loc>
+    
+    <lastmod>2026-01-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://isnuyoah.github.io/categories/index.html</loc>
     
     <lastmod>2026-01-04</lastmod>
     
@@ -84,42 +156,6 @@
   
   <url>
     <loc>https://isnuyoah.github.io/gallery/qingshanzhikezi/index.html</loc>
-    
-    <lastmod>2026-01-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/gallery/travel/index.html</loc>
-    
-    <lastmod>2026-01-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/gallery/shenmei/index.html</loc>
-    
-    <lastmod>2026-01-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/gallery/xiamei/index.html</loc>
-    
-    <lastmod>2026-01-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/gallery/yane/index.html</loc>
     
     <lastmod>2026-01-04</lastmod>
     
@@ -201,42 +237,6 @@
   
   <url>
     <loc>https://isnuyoah.github.io/about/index.html</loc>
-    
-    <lastmod>2026-01-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/archives/index.html</loc>
-    
-    <lastmod>2026-01-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/bangumi/index.html</loc>
-    
-    <lastmod>2026-01-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/books/index.html</loc>
-    
-    <lastmod>2026-01-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://isnuyoah.github.io/categories/index.html</loc>
     
     <lastmod>2026-01-04</lastmod>
     
