@@ -348,17 +348,6 @@
     
     
     <entry>
-      <title>追番</title>
-      <link href="/bangumi/index.html"/>
-      <url>/bangumi/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>书架</title>
       <link href="/books/index.html"/>
       <url>/books/index.html</url>
@@ -373,6 +362,17 @@
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>追番</title>
+      <link href="/bangumi/index.html"/>
+      <url>/bangumi/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -426,10 +426,10 @@
     
     <entry>
       <title></title>
-      <link href="/js/copy.js"/>
-      <url>/js/copy.js</url>
+      <link href="/js/clickshowtext.js"/>
+      <url>/js/clickshowtext.js</url>
       
-        <content type="html"><![CDATA[document.addEventListener("copy", (function (e) {    toastr.options = {        /*关闭按钮是否开启 */          closeButton: false,          debug: false,          /*是否出现进度条 */        progressBar: true,         /*出现的位置，top与left可以进行更改  */         positionClass: "toast-top-left",          /*点击触发的函数，懂js的同学可以自行设置 */        onclick: null,          /**持续的实践，动画实践等等 */        showDuration: "300",          hideDuration: "300",          timeOut: "2500",          extendedTimeOut: "1000",        /**出现的方式 */          showEasing: "swing",          hideEasing: "linear",          showMethod: "fadeIn",          hideMethod: "fadeOut"      };    /**点击复制之后出现的文本，后面是标题 */    toastr.success("如果转载，请保留原文链接哦(●ˇ∀ˇ●)","复制成功！！！");  }));]]></content>
+        <content type="html"><![CDATA[(function () {  // 点击出现的文字列表  var textList = [    "I", "LOVE", "YOU",    "これは、ゲームであっても遊びではない。",    "这虽然是游戏，但可不是闹着玩的。",    "缘之空", "悠之空", "ヨスガノソラ", "Yosuga no Sora",    "春日野悠", "春日野穹"  ];  // 随机颜色列表  var colorList = [    "#ff0000", "#ff69b4", "#00bfff", "#32cd32", "#ffa500", "#9370db"  ];  // 点击事件处理  function clickHandler(e) {    var text = textList[Math.floor(Math.random() * textList.length)];    var color = colorList[Math.floor(Math.random() * colorList.length)];    var span = document.createElement('span');    span.textContent = text;    span.style.position = 'absolute';    span.style.zIndex = 9999;    span.style.fontSize = '15px';    span.style.fontWeight = 'bold';    span.style.color = color;    span.style.left = e.pageX + 'px';    span.style.top = e.pageY - 20 + 'px';    span.style.pointerEvents = 'none';    span.style.userSelect = 'none';    document.body.appendChild(span);    // 动画    let opacity = 1;    let y = e.pageY - 20;    var timer = setInterval(function () {      if (opacity <= 0) {        clearInterval(timer);        document.body.removeChild(span);      } else {        y -= 1;        span.style.top = y + 'px';        span.style.opacity = opacity;        opacity -= 0.02;      }    }, 16);  }  // 确保只绑定一次  document.removeEventListener('click', clickHandler);  document.addEventListener('click', clickHandler);  // Pjax 页面切换时重新绑定（先解绑再绑定，避免重复）  document.addEventListener('pjax:complete', function () {    document.removeEventListener('click', clickHandler);    document.addEventListener('click', clickHandler);  });})();]]></content>
       
     </entry>
     
@@ -437,10 +437,10 @@
     
     <entry>
       <title></title>
-      <link href="/js/clickshowtext.js"/>
-      <url>/js/clickshowtext.js</url>
+      <link href="/js/copy.js"/>
+      <url>/js/copy.js</url>
       
-        <content type="html"><![CDATA[(function () {  // 点击出现的文字列表  var textList = [    "I", "LOVE", "YOU",    "これは、ゲームであっても遊びではない。",    "这虽然是游戏，但可不是闹着玩的。",    "缘之空", "悠之空", "ヨスガノソラ", "Yosuga no Sora",    "春日野悠", "春日野穹"  ];  // 随机颜色列表  var colorList = [    "#ff0000", "#ff69b4", "#00bfff", "#32cd32", "#ffa500", "#9370db"  ];  // 点击事件处理  function clickHandler(e) {    var text = textList[Math.floor(Math.random() * textList.length)];    var color = colorList[Math.floor(Math.random() * colorList.length)];    var span = document.createElement('span');    span.textContent = text;    span.style.position = 'absolute';    span.style.zIndex = 9999;    span.style.fontSize = '15px';    span.style.fontWeight = 'bold';    span.style.color = color;    span.style.left = e.pageX + 'px';    span.style.top = e.pageY - 20 + 'px';    span.style.pointerEvents = 'none';    span.style.userSelect = 'none';    document.body.appendChild(span);    // 动画    let opacity = 1;    let y = e.pageY - 20;    var timer = setInterval(function () {      if (opacity <= 0) {        clearInterval(timer);        document.body.removeChild(span);      } else {        y -= 1;        span.style.top = y + 'px';        span.style.opacity = opacity;        opacity -= 0.02;      }    }, 16);  }  // 确保只绑定一次  document.removeEventListener('click', clickHandler);  document.addEventListener('click', clickHandler);  // Pjax 页面切换时重新绑定（先解绑再绑定，避免重复）  document.addEventListener('pjax:complete', function () {    document.removeEventListener('click', clickHandler);    document.addEventListener('click', clickHandler);  });})();]]></content>
+        <content type="html"><![CDATA[document.addEventListener("copy", (function (e) {    toastr.options = {        /*关闭按钮是否开启 */          closeButton: false,          debug: false,          /*是否出现进度条 */        progressBar: true,         /*出现的位置，top与left可以进行更改  */         positionClass: "toast-top-left",          /*点击触发的函数，懂js的同学可以自行设置 */        onclick: null,          /**持续的实践，动画实践等等 */        showDuration: "300",          hideDuration: "300",          timeOut: "2500",          extendedTimeOut: "1000",        /**出现的方式 */          showEasing: "swing",          hideEasing: "linear",          showMethod: "fadeIn",          hideMethod: "fadeOut"      };    /**点击复制之后出现的文本，后面是标题 */    toastr.success("如果转载，请保留原文链接哦(●ˇ∀ˇ●)","复制成功！！！");  }));]]></content>
       
     </entry>
     
@@ -469,22 +469,22 @@
     
     
     <entry>
-      <title>友情链接</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
+      <title></title>
+      <link href="/js/toastr.min.js"/>
+      <url>/js/toastr.min.js</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[!function(e){e(["jquery"],function(e){return function(){function t(e,t,n){return g({type:O.error,iconClass:m().iconClasses.error,message:e,optionsOverride:n,title:t})}function n(t,n){return t||(t=m()),v=e("#"+t.containerId),v.length?v:(n&&(v=d(t)),v)}function o(e,t,n){return g({type:O.info,iconClass:m().iconClasses.info,message:e,optionsOverride:n,title:t})}function s(e){C=e}function i(e,t,n){return g({type:O.success,iconClass:m().iconClasses.success,message:e,optionsOverride:n,title:t})}function a(e,t,n){return g({type:O.warning,iconClass:m().iconClasses.warning,message:e,optionsOverride:n,title:t})}function r(e,t){var o=m();v||n(o),u(e,o,t)||l(o)}function c(t){var o=m();return v||n(o),t&&0===e(":focus",t).length?void h(t):void(v.children().length&&v.remove())}function l(t){for(var n=v.children(),o=n.length-1;o>=0;o--)u(e(n[o]),t)}function u(t,n,o){var s=!(!o||!o.force)&&o.force;return!(!t||!s&&0!==e(":focus",t).length)&&(t[n.hideMethod]({duration:n.hideDuration,easing:n.hideEasing,complete:function(){h(t)}}),!0)}function d(t){return v=e("<div/>").attr("id",t.containerId).addClass(t.positionClass),v.appendTo(e(t.target)),v}function p(){return{tapToDismiss:!0,toastClass:"toast",containerId:"toast-container",debug:!1,showMethod:"fadeIn",showDuration:300,showEasing:"swing",onShown:void 0,hideMethod:"fadeOut",hideDuration:1e3,hideEasing:"swing",onHidden:void 0,closeMethod:!1,closeDuration:!1,closeEasing:!1,closeOnHover:!0,extendedTimeOut:1e3,iconClasses:{error:"toast-error",info:"toast-info",success:"toast-success",warning:"toast-warning"},iconClass:"toast-info",positionClass:"toast-top-right",timeOut:5e3,titleClass:"toast-title",messageClass:"toast-message",escapeHtml:!1,target:"body",closeHtml:'<button type="button">&times;</button>',closeClass:"toast-close-button",newestOnTop:!0,preventDuplicates:!1,progressBar:!1,progressClass:"toast-progress",rtl:!1}}function f(e){C&&C(e)}function g(t){function o(e){return null==e&&(e=""),e.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function s(){c(),u(),d(),p(),g(),C(),l(),i()}function i(){var e="";switch(t.iconClass){case"toast-success":case"toast-info":e="polite";break;default:e="assertive"}I.attr("aria-live",e)}function a(){E.closeOnHover&&I.hover(H,D),!E.onclick&&E.tapToDismiss&&I.click(b),E.closeButton&&j&&j.click(function(e){e.stopPropagation?e.stopPropagation():void 0!==e.cancelBubble&&e.cancelBubble!==!0&&(e.cancelBubble=!0),E.onCloseClick&&E.onCloseClick(e),b(!0)}),E.onclick&&I.click(function(e){E.onclick(e),b()})}function r(){I.hide(),I[E.showMethod]({duration:E.showDuration,easing:E.showEasing,complete:E.onShown}),E.timeOut>0&&(k=setTimeout(b,E.timeOut),F.maxHideTime=parseFloat(E.timeOut),F.hideEta=(new Date).getTime()+F.maxHideTime,E.progressBar&&(F.intervalId=setInterval(x,10)))}function c(){t.iconClass&&I.addClass(E.toastClass).addClass(y)}function l(){E.newestOnTop?v.prepend(I):v.append(I)}function u(){if(t.title){var e=t.title;E.escapeHtml&&(e=o(t.title)),M.append(e).addClass(E.titleClass),I.append(M)}}function d(){if(t.message){var e=t.message;E.escapeHtml&&(e=o(t.message)),B.append(e).addClass(E.messageClass),I.append(B)}}function p(){E.closeButton&&(j.addClass(E.closeClass).attr("role","button"),I.prepend(j))}function g(){E.progressBar&&(q.addClass(E.progressClass),I.prepend(q))}function C(){E.rtl&&I.addClass("rtl")}function O(e,t){if(e.preventDuplicates){if(t.message===w)return!0;w=t.message}return!1}function b(t){var n=t&&E.closeMethod!==!1?E.closeMethod:E.hideMethod,o=t&&E.closeDuration!==!1?E.closeDuration:E.hideDuration,s=t&&E.closeEasing!==!1?E.closeEasing:E.hideEasing;if(!e(":focus",I).length||t)return clearTimeout(F.intervalId),I[n]({duration:o,easing:s,complete:function(){h(I),clearTimeout(k),E.onHidden&&"hidden"!==P.state&&E.onHidden(),P.state="hidden",P.endTime=new Date,f(P)}})}function D(){(E.timeOut>0||E.extendedTimeOut>0)&&(k=setTimeout(b,E.extendedTimeOut),F.maxHideTime=parseFloat(E.extendedTimeOut),F.hideEta=(new Date).getTime()+F.maxHideTime)}function H(){clearTimeout(k),F.hideEta=0,I.stop(!0,!0)[E.showMethod]({duration:E.showDuration,easing:E.showEasing})}function x(){var e=(F.hideEta-(new Date).getTime())/F.maxHideTime*100;q.width(e+"%")}var E=m(),y=t.iconClass||E.iconClass;if("undefined"!=typeof t.optionsOverride&&(E=e.extend(E,t.optionsOverride),y=t.optionsOverride.iconClass||y),!O(E,t)){T++,v=n(E,!0);var k=null,I=e("<div/>"),M=e("<div/>"),B=e("<div/>"),q=e("<div/>"),j=e(E.closeHtml),F={intervalId:null,hideEta:null,maxHideTime:null},P={toastId:T,state:"visible",startTime:new Date,options:E,map:t};return s(),r(),a(),f(P),E.debug&&console&&console.log(P),I}}function m(){return e.extend({},p(),b.options)}function h(e){v||(v=n()),e.is(":visible")||(e.remove(),e=null,0===v.children().length&&(v.remove(),w=void 0))}var v,C,w,T=0,O={error:"error",info:"info",success:"success",warning:"warning"},b={clear:r,remove:c,error:t,getContainer:n,info:o,options:{},subscribe:s,success:i,version:"2.1.3",warning:a};return b}()})}("function"==typeof define&&define.amd?define:function(e,t){"undefined"!=typeof module&&module.exports?module.exports=t(require("jquery")):window.toastr=t(window.jQuery)});//# sourceMappingURL=toastr.js.map]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title></title>
-      <link href="/js/toastr.min.js"/>
-      <url>/js/toastr.min.js</url>
+      <title>友情链接</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
       
-        <content type="html"><![CDATA[!function(e){e(["jquery"],function(e){return function(){function t(e,t,n){return g({type:O.error,iconClass:m().iconClasses.error,message:e,optionsOverride:n,title:t})}function n(t,n){return t||(t=m()),v=e("#"+t.containerId),v.length?v:(n&&(v=d(t)),v)}function o(e,t,n){return g({type:O.info,iconClass:m().iconClasses.info,message:e,optionsOverride:n,title:t})}function s(e){C=e}function i(e,t,n){return g({type:O.success,iconClass:m().iconClasses.success,message:e,optionsOverride:n,title:t})}function a(e,t,n){return g({type:O.warning,iconClass:m().iconClasses.warning,message:e,optionsOverride:n,title:t})}function r(e,t){var o=m();v||n(o),u(e,o,t)||l(o)}function c(t){var o=m();return v||n(o),t&&0===e(":focus",t).length?void h(t):void(v.children().length&&v.remove())}function l(t){for(var n=v.children(),o=n.length-1;o>=0;o--)u(e(n[o]),t)}function u(t,n,o){var s=!(!o||!o.force)&&o.force;return!(!t||!s&&0!==e(":focus",t).length)&&(t[n.hideMethod]({duration:n.hideDuration,easing:n.hideEasing,complete:function(){h(t)}}),!0)}function d(t){return v=e("<div/>").attr("id",t.containerId).addClass(t.positionClass),v.appendTo(e(t.target)),v}function p(){return{tapToDismiss:!0,toastClass:"toast",containerId:"toast-container",debug:!1,showMethod:"fadeIn",showDuration:300,showEasing:"swing",onShown:void 0,hideMethod:"fadeOut",hideDuration:1e3,hideEasing:"swing",onHidden:void 0,closeMethod:!1,closeDuration:!1,closeEasing:!1,closeOnHover:!0,extendedTimeOut:1e3,iconClasses:{error:"toast-error",info:"toast-info",success:"toast-success",warning:"toast-warning"},iconClass:"toast-info",positionClass:"toast-top-right",timeOut:5e3,titleClass:"toast-title",messageClass:"toast-message",escapeHtml:!1,target:"body",closeHtml:'<button type="button">&times;</button>',closeClass:"toast-close-button",newestOnTop:!0,preventDuplicates:!1,progressBar:!1,progressClass:"toast-progress",rtl:!1}}function f(e){C&&C(e)}function g(t){function o(e){return null==e&&(e=""),e.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function s(){c(),u(),d(),p(),g(),C(),l(),i()}function i(){var e="";switch(t.iconClass){case"toast-success":case"toast-info":e="polite";break;default:e="assertive"}I.attr("aria-live",e)}function a(){E.closeOnHover&&I.hover(H,D),!E.onclick&&E.tapToDismiss&&I.click(b),E.closeButton&&j&&j.click(function(e){e.stopPropagation?e.stopPropagation():void 0!==e.cancelBubble&&e.cancelBubble!==!0&&(e.cancelBubble=!0),E.onCloseClick&&E.onCloseClick(e),b(!0)}),E.onclick&&I.click(function(e){E.onclick(e),b()})}function r(){I.hide(),I[E.showMethod]({duration:E.showDuration,easing:E.showEasing,complete:E.onShown}),E.timeOut>0&&(k=setTimeout(b,E.timeOut),F.maxHideTime=parseFloat(E.timeOut),F.hideEta=(new Date).getTime()+F.maxHideTime,E.progressBar&&(F.intervalId=setInterval(x,10)))}function c(){t.iconClass&&I.addClass(E.toastClass).addClass(y)}function l(){E.newestOnTop?v.prepend(I):v.append(I)}function u(){if(t.title){var e=t.title;E.escapeHtml&&(e=o(t.title)),M.append(e).addClass(E.titleClass),I.append(M)}}function d(){if(t.message){var e=t.message;E.escapeHtml&&(e=o(t.message)),B.append(e).addClass(E.messageClass),I.append(B)}}function p(){E.closeButton&&(j.addClass(E.closeClass).attr("role","button"),I.prepend(j))}function g(){E.progressBar&&(q.addClass(E.progressClass),I.prepend(q))}function C(){E.rtl&&I.addClass("rtl")}function O(e,t){if(e.preventDuplicates){if(t.message===w)return!0;w=t.message}return!1}function b(t){var n=t&&E.closeMethod!==!1?E.closeMethod:E.hideMethod,o=t&&E.closeDuration!==!1?E.closeDuration:E.hideDuration,s=t&&E.closeEasing!==!1?E.closeEasing:E.hideEasing;if(!e(":focus",I).length||t)return clearTimeout(F.intervalId),I[n]({duration:o,easing:s,complete:function(){h(I),clearTimeout(k),E.onHidden&&"hidden"!==P.state&&E.onHidden(),P.state="hidden",P.endTime=new Date,f(P)}})}function D(){(E.timeOut>0||E.extendedTimeOut>0)&&(k=setTimeout(b,E.extendedTimeOut),F.maxHideTime=parseFloat(E.extendedTimeOut),F.hideEta=(new Date).getTime()+F.maxHideTime)}function H(){clearTimeout(k),F.hideEta=0,I.stop(!0,!0)[E.showMethod]({duration:E.showDuration,easing:E.showEasing})}function x(){var e=(F.hideEta-(new Date).getTime())/F.maxHideTime*100;q.width(e+"%")}var E=m(),y=t.iconClass||E.iconClass;if("undefined"!=typeof t.optionsOverride&&(E=e.extend(E,t.optionsOverride),y=t.optionsOverride.iconClass||y),!O(E,t)){T++,v=n(E,!0);var k=null,I=e("<div/>"),M=e("<div/>"),B=e("<div/>"),q=e("<div/>"),j=e(E.closeHtml),F={intervalId:null,hideEta:null,maxHideTime:null},P={toastId:T,state:"visible",startTime:new Date,options:E,map:t};return s(),r(),a(),f(P),E.debug&&console&&console.log(P),I}}function m(){return e.extend({},p(),b.options)}function h(e){v||(v=n()),e.is(":visible")||(e.remove(),e=null,0===v.children().length&&(v.remove(),w=void 0))}var v,C,w,T=0,O={error:"error",info:"info",success:"success",warning:"warning"},b={clear:r,remove:c,error:t,getContainer:n,info:o,options:{},subscribe:s,success:i,version:"2.1.3",warning:a};return b}()})}("function"==typeof define&&define.amd?define:function(e,t){"undefined"!=typeof module&&module.exports?module.exports=t(require("jquery")):window.toastr=t(window.jQuery)});//# sourceMappingURL=toastr.js.map]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
