@@ -204,7 +204,7 @@ btf.addGlobalFn('pjaxSend', () => {
   } else {
     window.loadOtherComment = loadTwikoo
   }
-})()</script></div><script async src="https://registry.npmmirror.com/weblive2d/latest/files/js/autoload.js"></script><script src="/js/clickshowtext.js"></script><script src="/js/jquery.js"></script><script src="/js/toastr.min.js"></script><script src="/js/copy.js"></script><script src="/js/title.js"></script><meting-js class="no-destroy" id="6832096597" server="netease" type="playlist" fixed="true" autoplay order="random" volume="0.3" list-folded="false" list-max-height="36vh"><div class="aplayer no-destroy" data-id="6832096597" data-server="netease" data-type="playlist" data-order="list" data-fixed="true" data-preload="auto" data-autoplay="false" data-mutex="true"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload='this.media="all"'><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="https://registry.npmmirror.com/meting/latest/files/dist/Meting.min.js"></script><script>(() => {
+})()</script></div><script async src="https://registry.npmmirror.com/weblive2d/latest/files/js/autoload.js"></script><script src="/js/clickshowtext.js"></script><script src="/js/jquery.js"></script><script src="/js/toastr.min.js"></script><script src="/js/copy.js"></script><script src="/js/title.js"></script><meting-js class="no-destroy" id="6832096597" server="netease" type="playlist" fixed="true" lock="true" autoplay order="random" volume="0.3" list-folded="false" list-max-height="36vh"></meting-js><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" media="print" onload='this.media="all"'><script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script><script src="/js/vendor/meting-2.0.2.js?v=20261103-2"></script><script>(() => {
   const destroyAplayer = () => {
     if (window.aplayers) {
       for (let i = 0; i < window.aplayers.length; i++) {
@@ -220,7 +220,7 @@ btf.addGlobalFn('pjaxSend', () => {
   }
 
   btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
-  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+  btf.addGlobalFn('pjaxComplete', runMetingJS, 'runMetingJS')
 })()</script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>(() => {
   const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show","#web_bg",".js-pjax"]
 
