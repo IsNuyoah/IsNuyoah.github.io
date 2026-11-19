@@ -11,15 +11,6 @@
   </url>
   
   <url>
-    <loc>https://nuyoah.space/movies/index.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://nuyoah.space/link/index.html</loc>
     
     <lastmod>2026-11-19</lastmod>
@@ -29,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://nuyoah.space/shuoshuo/index.html</loc>
+    <loc>https://nuyoah.space/movies/index.html</loc>
     
     <lastmod>2026-11-19</lastmod>
     
@@ -39,6 +30,15 @@
   
   <url>
     <loc>https://nuyoah.space/music/index.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/shuoshuo/index.html</loc>
     
     <lastmod>2026-11-19</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://nuyoah.space/gallery/shenmei/index.html</loc>
+    <loc>https://nuyoah.space/gallery/molord/index.html</loc>
     
     <lastmod>2026-11-19</lastmod>
     
@@ -84,6 +84,15 @@
   
   <url>
     <loc>https://nuyoah.space/gallery/qingshanzhikezi/index.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/gallery/shenmei/index.html</loc>
     
     <lastmod>2026-11-19</lastmod>
     
@@ -111,87 +120,6 @@
   
   <url>
     <loc>https://nuyoah.space/gallery/yane/index.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/gallery/molord/index.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/posts/afd717c0.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/posts/4aaaaa72.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/posts/3cbf5c9a.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/archives/index.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/about/index.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/bangumi/index.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/books/index.html</loc>
-    
-    <lastmod>2026-11-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/categories/index.html</loc>
     
     <lastmod>2026-11-19</lastmod>
     
@@ -263,7 +191,7 @@
   </url>
   
   <url>
-    <loc>https://nuyoah.space/posts/paperwork-htb.html</loc>
+    <loc>https://nuyoah.space/posts/portswigger-learning-index.html</loc>
     
     <lastmod>2026-11-19</lastmod>
     
@@ -272,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://nuyoah.space/posts/portswigger-learning-index.html</loc>
+    <loc>https://nuyoah.space/posts/paperwork-htb.html</loc>
     
     <lastmod>2026-11-19</lastmod>
     
@@ -326,6 +254,87 @@
   </url>
   
   <url>
+    <loc>https://nuyoah.space/posts/afd717c0.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/posts/4aaaaa72.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/posts/3cbf5c9a.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/about/index.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/archives/index.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/bangumi/index.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/books/index.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/categories/index.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/posts/777c212d.html</loc>
+    
+    <lastmod>2026-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://nuyoah.space/posts/thm-domino.html</loc>
     
     <lastmod>2026-10-26</lastmod>
@@ -351,6 +360,34 @@
     <priority>1.0</priority>
   </url>
 
+  
+  <url>
+    <loc>https://nuyoah.space/tags/WireGuard/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/tags/Azure/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/tags/Windows-11/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/tags/Linux/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
   <url>
     <loc>https://nuyoah.space/tags/HTB/</loc>
@@ -493,6 +530,27 @@
   </url>
   
   <url>
+    <loc>https://nuyoah.space/tags/PortSwigger/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/tags/Web-Security-Academy/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/tags/Web%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://nuyoah.space/tags/Python/</loc>
     <lastmod>2026-11-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -521,56 +579,7 @@
   </url>
   
   <url>
-    <loc>https://nuyoah.space/tags/PortSwigger/</loc>
-    <lastmod>2026-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/tags/Web-Security-Academy/</loc>
-    <lastmod>2026-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/tags/Web%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2026-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://nuyoah.space/tags/THM/</loc>
-    <lastmod>2026-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/tags/JWT/</loc>
-    <lastmod>2026-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/tags/%E6%BA%90%E7%A0%81%E5%AE%A1%E8%AE%A1/</loc>
-    <lastmod>2026-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/tags/Linux%E6%8F%90%E6%9D%83/</loc>
-    <lastmod>2026-11-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://nuyoah.space/tags/Linux/</loc>
     <lastmod>2026-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -592,6 +601,27 @@
   
   <url>
     <loc>https://nuyoah.space/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/tags/JWT/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/tags/%E6%BA%90%E7%A0%81%E5%AE%A1%E8%AE%A1/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://nuyoah.space/tags/Linux%E6%8F%90%E6%9D%83/</loc>
     <lastmod>2026-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -766,6 +796,13 @@
   </url>
   
 
+  
+  <url>
+    <loc>https://nuyoah.space/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
   <url>
     <loc>https://nuyoah.space/categories/htb/</loc>
